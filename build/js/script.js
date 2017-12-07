@@ -45,29 +45,27 @@ $(function(){
                 '<div class="product-cards__wrapper-title">' + data.products[i].title + '</div>' +
                 '<div class="product-cards__wrapper-text">' + data.products[i].body_html + '</div>'+
                 '<div class="product-cards__wrapper-price-btn"><div class="product-cards__price">' +
-                '<span>' + data.products[i].variants[0].price + ' </span>$</div>' +
+                '<span>'+ data.products[i].variants[0].price +'</span> $</div>' +
                 '<div data-product-btn class="product-cards__btn btn">buy</div></div></div>');
 
         }
         $(function () {
             var btn = $('[data-product-btn]');
-            var arrId = [];
+            var good = {};
 
             btn.click(function() {
                 var card = $(this).closest('.product-cards__wrapper-card');
                 var cardId = card.attr('id');
 
-                function find(arrId, cardId) {
-                    if (arrId.indexOf) {
-                        return arrId.indexOf(cardId);
-                    }
-                    for (var i = 0; i < arrId.length; i++) {
-                        if (arrId[i] === cardId) return i;
-                    }
-                    return false;
+                function findId () {
+                    for (var cardId in good) {
+                        return cardId;
+                        }
                 }
-
-                if (find(arrId, cardId) === -1) {
+                if (cardId in good) {
+                    $('#modalContentInfo').addClass('modal-content-info--show');
+                    $('#modalOverlay').addClass('modal-overlay--show');
+                }else {
                     card.clone()
                         .appendTo('#modalContentWrapper')
                         .attr('class', 'modal-content__wrapper')
@@ -87,67 +85,39 @@ $(function(){
                     text.attr('class', 'modal-content__text');
                     price.attr('class', 'modal-content__price');
 
-                    arrId.push(card.attr('id'));
-                }else {
-                    $('#modalContentInfo').addClass('modal-content-info--show');
-                    $('#modalOverlay').addClass('modal-overlay--show');
+                    var wrapperPriceBtn = $(this).closest('.product-cards__wrapper-price-btn');
+                    var prices = wrapperPriceBtn.children('.product-cards__price');
+                    var cash = +prices.children('span')[0].outerText;
+                    good[cardId] = cash;
                 }
 
+                var cashValue = $('#mainHeaderCash');
 
+                function sum () {
+                    var sum = 0;
+                    for (var cash in good) {
+                        sum += good[cash];
+                    }
 
-                console.log('  масив Айді ' + arrId);
+                    cashValue.text(sum + ' $');
+                    return sum
+                }
+                sum ();
+
                 $(function () {
-                    // добавляє лічильник(сума) в header
-                    var price = $('#modalContentWrapper .modal-content__price');
-                    var cash = $('#mainHeaderCash');
-                    var arr = [];
-
-
-                    function sumCash () {
-                        var sum = 0;
-                        for ( var a = 0; a < arr.length; a++) {
-                            sum += arr[a];
-
-                        }
-                        cash.text(sum + ' $');
-                    }
-                    for (var i = 0; i < price.length; i++) {
-                        arr.push(parseFloat(price[i].outerText));
-                        sumCash ();
-
-                    }
-
 
                     var deleteGood = $('[data-delete-good]');
 
-                    var arrDeleteId = [];
-
                     deleteGood.click(function () {
-                        var good = $(this).closest('.modal-content__wrapper');
-                        var delId = good.attr('id');
+                        var goodDelete = $(this).closest('.modal-content__wrapper');
+                        var delId = goodDelete.attr('id');
 
-
-                        good.remove();
-                        arrDeleteId.push(delId);
-                        console.log('видаленні айді ' + arrDeleteId);
-
-                        
+                        delete good[delId];
+                        sum ();
+                        goodDelete.remove();
                     });
-
-                    // міняє картинку в header
-                    var img = $('#mainHeaderImg');
-
-                    if (cash !== 0) {
-                        img.attr('src', 'img/icons1.png');
-                    }
-
-
-
-
                 });
-
             });
-
         });
     });
 });
