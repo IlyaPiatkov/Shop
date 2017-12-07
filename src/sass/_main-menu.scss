@@ -1,0 +1,42 @@
+.main-menu {
+  margin-top: 104px;
+  background-color: $bc-main-menu;
+}
+.main-menu__wrapper {
+  @include container;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  a {
+    position: relative;
+    display: block;
+    padding: 10px 20px;
+    font-family: $font-basic;
+    font-size: 20px;
+    color: $c-main-menu-title;
+    text-decoration: none;
+  }
+  a::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 14px;
+    width: 2px;
+    height: 15px;
+    background-color: $c-main-menu-title;
+  }
+  li:last-child a::after {
+    display: none;
+  }
+  a:hover {
+    background-color: #c9c9c9;
+    color: #000;
+    transition-duration: 500ms;
+  }
+  a:active {
+    opacity: 0.5;
+  }
+}
+

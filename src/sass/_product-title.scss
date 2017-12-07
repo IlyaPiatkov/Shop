@@ -1,0 +1,13 @@
+.product-title {
+  margin-top: 50px;
+  background-color: $bc-main-menu;
+}
+.product-title__wrapper {
+  @include container;
+}
+.product-title h2 {
+  padding: 15px 0;
+  font-family: $font-title;
+  font-size: 25px;
+  color: $c-main-menu-title;
+}

@@ -1,0 +1,32 @@
+.main-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: $bc-basic;
+  z-index: 9;
+}
+.main-header__wrapper {
+  @include container;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+.main-header__logo {
+  font-family: $font-logo;
+  font-size: 60px;
+}
+.wrapper-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-basis: 150px;
+  align-items: center;
+  cursor: pointer;
+}
+.main-header__cash {
+  font-family: $font-basic;
+  font-size: 25px;
+  color: $c-cash;
+}

@@ -1,0 +1,25 @@
+.info-site {
+  background-color: $bc-basic;
+}
+.info-site__wrapper {
+  @include container;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 70px;
+}
+.info-site__wrapper-info {
+  margin-left: 15px;
+}
+.info-site__main-title {
+  margin: 0;
+  padding: 5px 0;
+  font-family: $font-title;
+  font-weight: bold;
+  font-size: 40px;
+}
+.info-site__text {
+  font-family: $font-title-text;
+  font-size: 20px;
+;
+}
